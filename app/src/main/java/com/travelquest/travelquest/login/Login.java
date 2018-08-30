@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -44,7 +46,10 @@ public class Login extends AppCompatActivity {
     CallbackManager callbackManager;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-    String accountType;
+    JSONObject facebook_data;
+
+    AutoCompleteTextView email;
+    EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -56,12 +61,15 @@ public class Login extends AppCompatActivity {
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
 
+        email = (AutoCompleteTextView) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
+
         // Configure classic signin/register
         register = (Button) findViewById(R.id.email_sign_in_button);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userExists("nicolas.li@hotmail.fr", "");
+                userExists(email.getText().toString(), "");
             }
         });
 
@@ -72,11 +80,8 @@ public class Login extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                getUserFacebookData(loginResult);
 
-                //getUserDetails(loginResult);
-                //createUser(loginResult);
-                //TODO: generalize mail
-                userExists("nicolas.li@hotmail.fr", loginResult);
             }
 
             @Override
@@ -105,15 +110,15 @@ public class Login extends AppCompatActivity {
 
 
         /////// For testing purpose //////
-        register =(Button) findViewById((R.id.email_sign_in_button));
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent intent= new Intent(Login.this, UserPreference.class);
-                //startActivity(intent);
-                userExists("nicolas.li@hotmail.fr", null);
-            }
-        });
+        //register =(Button) findViewById((R.id.email_sign_in_button));
+        //register.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        //Intent intent= new Intent(Login.this, UserPreference.class);
+        //        //startActivity(intent);
+        //        userExists("nicolas.li@hotmail.fr", null);
+        //    }
+        //});
     }
 
     @Override
@@ -166,50 +171,37 @@ public class Login extends AppCompatActivity {
      * Create user function in database
      */
 
-   private void createUser(final LoginResult loginResult) {
+   private void createUser(JSONObject user_info) {
        final HashMap<String, String> params = new HashMap<>();
-       GraphRequest data_request = GraphRequest.newMeRequest(
-               loginResult.getAccessToken(),
-               new GraphRequest.GraphJSONObjectCallback() {
-                   @Override
-                   public void onCompleted(JSONObject object, GraphResponse response) {
-                    try {
 
-                        params.put("first_name", object.get("first_name").toString());
-                        params.put("last_name", object.get("last_name").toString());
-                        params.put("gender", "Unknown");
-                        params.put("mail", object.get("email").toString());
-                        params.put("password", "");
-                        params.put("accountType", "facebook");
+        try {
+            params.put("first_name", user_info.get("first_name").toString());
+            params.put("last_name", user_info.get("last_name").toString());
+            params.put("gender", "Unknown");
+            params.put("mail", user_info.get("email").toString());
+            params.put("password", "");
+            params.put("accountType", "facebook");
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
 
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
 
-                       //Calling the create hero API
-                       PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_USER, params, CODE_POST_CREATE, loginResult);
-                       request.execute();
-
-                   }
-               }
-       );
-       Bundle permission_param = new Bundle();
-       permission_param.putString("fields", "id,first_name,last_name,email,picture.width(120).height(120)");
-       data_request.setParameters(permission_param);
-       data_request.executeAsync();
+       //Calling the create hero API
+       PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_USER, params, CODE_POST_CREATE, user_info, "facebook");
+       request.execute();
 
    }
 
     /**
-     * This function returns the fullname of the user if he/she exists or null if not
+     * This function returns the fullname of the user if he/she exists or null if not (using facebook or basic)
      * @param mail
      * @return String or null
      */
-   private void userExists(String mail, LoginResult loginResult){
+   private void userExists(String mail, JSONObject user_info){
        HashMap<String, String> params = new HashMap<>();
        params.put("mail", mail);
 
-       PerformNetworkRequest request = new PerformNetworkRequest(API.URL_USER_EXISTS, params, CODE_POST_EXISTS, loginResult);
+       PerformNetworkRequest request = new PerformNetworkRequest(API.URL_USER_EXISTS, params, CODE_POST_EXISTS, user_info, "facebook");
 
        request.execute();
 
@@ -220,11 +212,43 @@ public class Login extends AppCompatActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("mail", mail);
 
-        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_USER_EXISTS, params, CODE_POST_EXISTS, loginResult);
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_USER_EXISTS, params, CODE_POST_EXISTS, null, "basic");
 
         request.execute();
 
         return;
+    }
+
+
+    /**
+     * This function return a JSON object with the user data obtained with facebook login
+     * @param loginResult
+     * @return JSONObject
+     */
+    private void getUserFacebookData(LoginResult loginResult){
+
+       GraphRequest data_request = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        facebook_data = object;
+
+                        try {
+                            userExists(facebook_data.get("email").toString(), facebook_data);
+                        }catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
+
+        Bundle permission_param = new Bundle();
+        permission_param.putString("fields", "id,first_name,last_name,email,picture.width(120).height(120)");
+        data_request.setParameters(permission_param);
+        data_request.executeAsync();
+
+       return;
     }
 
 
@@ -242,14 +266,17 @@ public class Login extends AppCompatActivity {
         //the request code to define whether it is a GET or POST
         int requestCode;
 
-        LoginResult loginResult;
+        JSONObject user_info;
+
+        String login_type;
 
         //constructor to initialize values
-        PerformNetworkRequest(String url, HashMap<String, String> params, int requestCode, LoginResult loginResult) {
+        PerformNetworkRequest(String url, HashMap<String, String> params, int requestCode, JSONObject user_info, String login_type) {
             this.url = url;
             this.params = params;
             this.requestCode = requestCode;
-            this.loginResult = loginResult;
+            this.user_info = user_info;
+            this.login_type = login_type;
         }
 
         //when the task started displaying a progressbar
@@ -264,7 +291,11 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            facebookLog(s);
+            Log.d("debug", s);
+            if( login_type.compareTo("facebook") == 0)
+                facebookLog(s);
+            else if(login_type.compareTo("basic") == 0)
+                basicLog(s);
 
         }
 
@@ -282,20 +313,44 @@ public class Login extends AppCompatActivity {
 
         }
 
+        protected void basicLog(String s){
+            try{
+                JSONObject object = new JSONObject(s);
+                if(object.get("user_info").toString().compareTo("[]") == 0){
+                    editor.putString("mail", params.get("mail"));
+
+                    /////// Launch next activity //////
+                    Intent intent = new Intent(Login.this, LoginForm.class);
+                    startActivity(intent);
+
+                }else{// The user exists
+                    //////// Create user session ////////
+                    JSONObject temp = object.getJSONArray("user_info").getJSONObject(0);
+                    editor.putString("first_name", temp.get("first_name").toString());
+                    editor.putString("mail", temp.get("mail").toString());
+                    editor.commit(); // commit changes
+
+                    /////// Launch next activity //////
+                    Intent intent = new Intent(Login.this, LoginTransition.class);
+                    startActivity(intent);
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+
         protected void facebookLog(String s){
             if (requestCode == CODE_POST_EXISTS){
                 try{
                     Log.d("debug", s);
                     JSONObject object = new JSONObject(s);
                     if(object.get("user_info").toString().compareTo("[]") == 0){// The user doesn't exist
-                        createUser(loginResult);
+                        createUser(user_info);
                     }else{// The user exists
 
-                        Log.d("debug", object.getJSONArray("user_info").getJSONObject(0).toString());
                         //////// Create user session ////////
-                        JSONObject user_info = object.getJSONArray("user_info").getJSONObject(0);
                         editor.putString("first_name", user_info.get("first_name").toString());
-                        editor.putString("mail", user_info.get("mail").toString());
+                        editor.putString("mail", user_info.get("email").toString());
                         editor.commit(); // commit changes
 
                         /////// Launch next activity //////
@@ -311,9 +366,8 @@ public class Login extends AppCompatActivity {
                     JSONObject object = new JSONObject(s);
 
                     //////// Create user session ////////
-                    JSONObject user_info = object.getJSONArray("user_info").getJSONObject(0);
                     editor.putString("first_name", user_info.get("first_name").toString());
-                    editor.putString("mail", user_info.get("mail").toString());
+                    editor.putString("mail", user_info.get("email").toString());
                     editor.commit(); // commit changes
 
                 }catch(JSONException e){
