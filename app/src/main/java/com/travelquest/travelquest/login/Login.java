@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -35,6 +36,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 
+//TODO: proper logout + side menu or action bar
+
 public class Login extends AppCompatActivity {
 
     private static final int CODE_GET_REQUEST = 1024;
@@ -50,6 +53,7 @@ public class Login extends AppCompatActivity {
 
     AutoCompleteTextView email;
     EditText password;
+    TextView password_fail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -63,6 +67,7 @@ public class Login extends AppCompatActivity {
 
         email = (AutoCompleteTextView) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
+        password_fail = (TextView) findViewById(R.id.password_fail);
 
         // Configure classic signin/register
         register = (Button) findViewById(R.id.email_sign_in_button);
@@ -193,13 +198,17 @@ public class Login extends AppCompatActivity {
    }
 
     /**
-     * This function returns the fullname of the user if he/she exists or null if not (using facebook or basic)
+     * These functions launch the user registration depending on if he/she exists or null if not (using facebook or basic form)
      * @param mail
      * @return String or null
      */
+
+    //Facebook case
    private void userExists(String mail, JSONObject user_info){
        HashMap<String, String> params = new HashMap<>();
        params.put("mail", mail);
+       params.put("password", "");
+       params.put("login_type", "facebook");
 
        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_USER_EXISTS, params, CODE_POST_EXISTS, user_info, "facebook");
 
@@ -208,9 +217,12 @@ public class Login extends AppCompatActivity {
        return;
    }
 
+   // Basic case
     private void userExists(String mail, String password){
         HashMap<String, String> params = new HashMap<>();
         params.put("mail", mail);
+        params.put("password", password);
+        params.put("login_type", "basic");
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_USER_EXISTS, params, CODE_POST_EXISTS, null, "basic");
 
@@ -316,23 +328,29 @@ public class Login extends AppCompatActivity {
         protected void basicLog(String s){
             try{
                 JSONObject object = new JSONObject(s);
-                if(object.get("user_info").toString().compareTo("[]") == 0){
+                if(object.get("user_info").toString().compareTo("[]") == 0){// The user does not exist
                     editor.putString("mail", params.get("mail"));
-
+                    editor.commit();
                     /////// Launch next activity //////
                     Intent intent = new Intent(Login.this, LoginForm.class);
                     startActivity(intent);
 
                 }else{// The user exists
-                    //////// Create user session ////////
-                    JSONObject temp = object.getJSONArray("user_info").getJSONObject(0);
-                    editor.putString("first_name", temp.get("first_name").toString());
-                    editor.putString("mail", temp.get("mail").toString());
-                    editor.commit(); // commit changes
 
-                    /////// Launch next activity //////
-                    Intent intent = new Intent(Login.this, LoginTransition.class);
-                    startActivity(intent);
+                    //////// Create user session if password matches////////
+                    JSONObject temp = object.getJSONArray("user_info").getJSONObject(0);
+                    if(Boolean.valueOf(temp.get("token").toString())) {
+
+                        editor.putString("first_name", temp.get("first_name").toString());
+                        editor.putString("mail", temp.get("mail").toString());
+                        editor.commit(); // commit changes
+
+                        /////// Launch next activity //////
+                        Intent intent = new Intent(Login.this, LoginTransition.class);
+                        startActivity(intent);
+                    }else{
+                        password_fail.setText("@string/password_fail");
+                    }
                 }
             }catch (JSONException e){
                 e.printStackTrace();

@@ -6,6 +6,8 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_first_name">First Name</string>
+    <string name="prompt_last_name">Last Name</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -19,6 +21,10 @@
     <string name="fb_login_protocol_scheme">fb1147842338705744</string>
     <string name="google_maps_key">AIzaSyD-xWxS4wf8BdPZrKX-w59HPz07CfNPXd0</string>
     <string name="title_activity_maps">Map</string>
+    <string name="login_form_title">We\'d need some more information about you ...</string>
+    <string name="password_fail">Wrong password</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 
     <!-- Homepage -->

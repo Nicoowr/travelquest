@@ -50,6 +50,9 @@
         <activity
             android:name=".login.LoginTransition">
         </activity>
+        <activity
+            android:name=".login.LoginForm">
+        </activity>
         <activity android:name=".UserProfile" />
 
 

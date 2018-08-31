@@ -25,51 +25,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/preferences_padding"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/im_interested_in"
-                android:textSize="@dimen/homepage_textsize"/>
-            <CheckBox
-                android:id='@+id/preference_food'
+                android:text="@string/login_form_title"
+                android:textSize="@dimen/login_form_title"/>
+            <EditText
+                android:id='@+id/form_mail'
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/food"
+                android:text=""
                 android:textSize="@dimen/preferences_textsize"/>
-            <CheckBox
-                android:id='@+id/preference_drink'
+            <EditText
+                android:id='@+id/form_password'
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
                 android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/drinks"/>
-            <CheckBox
-                android:id='@+id/preference_sight'
+                android:hint="Password"
+                android:text=""
+                android:textSize="@dimen/preferences_textsize"/>
+            <EditText
+                android:id='@+id/form_first_name'
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/prompt_first_name"
                 android:textSize="@dimen/preferences_textsize"
                 android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/sightseeing"/>
-            <CheckBox
-                android:id='@+id/preference_music'
+                android:text=""/>
+            <EditText
+                android:id='@+id/form_last_name'
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/prompt_last_name"
                 android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/music"/>
-            <CheckBox
-                android:id='@+id/preference_party'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/party"/>
+                android:layout_margin="@dimen/preferences_padding" />
 
+            <RadioGroup
+                android:id="@+id/form_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/male"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/female"/>
+            </RadioGroup>
             <Button
-                android:id="@+id/preferences_next"
+                android:id="@+id/login_form_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
