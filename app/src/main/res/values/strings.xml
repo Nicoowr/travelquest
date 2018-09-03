@@ -43,4 +43,7 @@
     <string name="music">Music</string>
     <string name="party">Party</string>
     <string name="next">Next</string>
+
+    <!-- Miscenalleous -->
+    <string name="save">Save</string>
 </resources>

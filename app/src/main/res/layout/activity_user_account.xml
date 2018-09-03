@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/main_wallpaper">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:alpha="0.7"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/preferences_padding"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/im_interested_in"
+                android:textSize="@dimen/homepage_textsize"/>
+            <CheckBox
+                android:id='@+id/account_food'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/preferences_padding"
+                android:text="@string/food"
+                android:textSize="@dimen/preferences_textsize"/>
+            <CheckBox
+                android:id='@+id/account_drink'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/preferences_textsize"
+                android:layout_margin="@dimen/preferences_padding"
+                android:text="@string/drinks"/>
+            <CheckBox
+                android:id='@+id/account_sight'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/preferences_textsize"
+                android:layout_margin="@dimen/preferences_padding"
+                android:text="@string/sightseeing"/>
+            <CheckBox
+                android:id='@+id/account_music'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/preferences_textsize"
+                android:layout_margin="@dimen/preferences_padding"
+                android:text="@string/music"/>
+            <CheckBox
+                android:id='@+id/account_party'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/preferences_textsize"
+                android:layout_margin="@dimen/preferences_padding"
+                android:text="@string/party"/>
+
+            <Button
+                android:id="@+id/account_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/preferences_padding"
+                android:background="@color/colorPrimary"
+                android:text="@string/save"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nvView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/nav_header"/>
+</android.support.v4.widget.DrawerLayout>

@@ -58,12 +58,7 @@ public class Login extends AppCompatActivity {
 
     AutoCompleteTextView email;
     EditText password;
-    TextView password_fail;
 
-    private DrawerLayout mDrawer;
-    private Toolbar toolbar;
-    private NavigationView nvDrawer;
-    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -71,16 +66,12 @@ public class Login extends AppCompatActivity {
         ////// Initialize activity /////
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
 
         email = (AutoCompleteTextView) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-        password_fail = (TextView) findViewById(R.id.password_fail);
 
         // Configure basic signin/register
         register = (Button) findViewById(R.id.email_sign_in_button);
