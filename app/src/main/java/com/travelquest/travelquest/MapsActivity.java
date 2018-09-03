@@ -43,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Kyoto and move the camera
-        LatLng sydney = new LatLng(35, 135.75);
+        LatLng sydney = new LatLng(52.52, 13.405);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Kyoto"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 

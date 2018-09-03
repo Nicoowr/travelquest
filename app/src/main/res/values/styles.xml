@@ -10,7 +10,7 @@
     </style>
 
     <!-- No action bar -->
-    <style name = "NoActionBar" parent = "Theme.AppCompat.Light.DarkActionBar">
+    <style name = "NoActionBar" parent = "Theme.AppCompat.Light.NoActionBar">
         <item name = "windowActionBar">false</item>
         <item name = "windowNoTitle">true</item>
         <item name="android:textViewStyle">@style/BigShotOneTextViewStyle</item>

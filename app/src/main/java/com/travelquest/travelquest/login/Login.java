@@ -5,14 +5,19 @@ package com.travelquest.travelquest.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -55,12 +60,20 @@ public class Login extends AppCompatActivity {
     EditText password;
     TextView password_fail;
 
+    private DrawerLayout mDrawer;
+    private Toolbar toolbar;
+    private NavigationView nvDrawer;
+    private ActionBarDrawerToggle drawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         ////// Initialize activity /////
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
@@ -69,12 +82,16 @@ public class Login extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         password_fail = (TextView) findViewById(R.id.password_fail);
 
-        // Configure classic signin/register
+        // Configure basic signin/register
         register = (Button) findViewById(R.id.email_sign_in_button);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userExists(email.getText().toString(), "");
+                //editor.putString("first_name", email.getText().toString());
+                //editor.commit();
+                //Intent intent = new Intent(Login.this, UserPreference.class);
+                //startActivity(intent);
+                userExists(email.getText().toString(), password.getText().toString());
             }
         });
 
@@ -96,7 +113,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+                Log.d("facebook error", exception.toString());
             }
         });
 
@@ -113,17 +130,6 @@ public class Login extends AppCompatActivity {
         };
         tokenTracker.startTracking();
 
-
-        /////// For testing purpose //////
-        //register =(Button) findViewById((R.id.email_sign_in_button));
-        //register.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        //Intent intent= new Intent(Login.this, UserPreference.class);
-        //        //startActivity(intent);
-        //        userExists("nicolas.li@hotmail.fr", null);
-        //    }
-        //});
     }
 
     @Override
@@ -162,6 +168,7 @@ public class Login extends AppCompatActivity {
                         //Intent intent = new Intent(Login.this, MapsActivity.class);
                         intent.putExtra("userProfile", json_object.toString());
                         startActivity(intent);
+                        finish();
                     }
 
                 });
@@ -185,7 +192,7 @@ public class Login extends AppCompatActivity {
             params.put("gender", "Unknown");
             params.put("mail", user_info.get("email").toString());
             params.put("password", "");
-            params.put("accountType", "facebook");
+            params.put("account_type", "facebook");
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -326,6 +333,7 @@ public class Login extends AppCompatActivity {
         }
 
         protected void basicLog(String s){
+            Log.d("debug_basiclog", s);
             try{
                 JSONObject object = new JSONObject(s);
                 if(object.get("user_info").toString().compareTo("[]") == 0){// The user does not exist
@@ -333,13 +341,15 @@ public class Login extends AppCompatActivity {
                     editor.commit();
                     /////// Launch next activity //////
                     Intent intent = new Intent(Login.this, LoginForm.class);
+                    intent.putExtra("password", password.getText().toString());
                     startActivity(intent);
+                    finish();
 
                 }else{// The user exists
 
                     //////// Create user session if password matches////////
                     JSONObject temp = object.getJSONArray("user_info").getJSONObject(0);
-                    if(Boolean.valueOf(temp.get("token").toString())) {
+                    if(Boolean.valueOf(temp.get("token").toString()) && temp.get("account_type").toString().compareTo("basic")==0) {
 
                         editor.putString("first_name", temp.get("first_name").toString());
                         editor.putString("mail", temp.get("mail").toString());
@@ -348,8 +358,10 @@ public class Login extends AppCompatActivity {
                         /////// Launch next activity //////
                         Intent intent = new Intent(Login.this, LoginTransition.class);
                         startActivity(intent);
+                        finish();
                     }else{
-                        password_fail.setText("@string/password_fail");
+                        Toast.makeText(Login.this,"Wrong password", Toast.LENGTH_SHORT).show();
+                        //password_fail.setText("Wrong password");
                     }
                 }
             }catch (JSONException e){
@@ -374,6 +386,7 @@ public class Login extends AppCompatActivity {
                         /////// Launch next activity //////
                         Intent intent = new Intent(Login.this, LoginTransition.class);
                         startActivity(intent);
+                        finish();
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();
@@ -395,6 +408,7 @@ public class Login extends AppCompatActivity {
                 /////// Launch next activity //////
                 Intent intent = new Intent(Login.this, UserPreference.class);
                 startActivity(intent);
+                finish();
             }
         }
     }

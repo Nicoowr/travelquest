@@ -45,6 +45,8 @@ public class UserPreference extends AppCompatActivity {
             public void onClick(View view) {
 
                 createUserPreferences();
+                //Intent intent = new Intent(UserPreference.this, LoginTransition.class);
+                //startActivity(intent);
             }
         });
     }

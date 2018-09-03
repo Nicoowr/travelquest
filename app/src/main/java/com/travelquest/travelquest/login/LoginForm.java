@@ -28,7 +28,7 @@ public class LoginForm extends AppCompatActivity{
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    EditText mail, first_name, last_name;
+    EditText mail, first_name, last_name, password;
     RadioGroup gender;
     Button next;
 
@@ -40,10 +40,14 @@ public class LoginForm extends AppCompatActivity{
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
 
+        Intent intent = getIntent();
+
         mail = (EditText) findViewById(R.id.form_mail);
         first_name = (EditText) findViewById(R.id.form_first_name);
         last_name = (EditText) findViewById(R.id.form_last_name);
         gender = (RadioGroup) findViewById(R.id.form_gender);
+        password = (EditText) findViewById(R.id.form_password);
+        password.setText(intent.getStringExtra("password"));
 
 
         mail.setText(pref.getString("mail", null));
@@ -64,8 +68,8 @@ public class LoginForm extends AppCompatActivity{
         params.put("last_name", last_name.getText().toString());
         params.put("gender", "Unknown");
         params.put("mail", mail.getText().toString());
-        params.put("password", "");
-        params.put("accountType", "basic");
+        params.put("password", password.getText().toString());
+        params.put("account_type", "basic");
 
 
         //Calling the create hero API
@@ -108,7 +112,7 @@ public class LoginForm extends AppCompatActivity{
             editor.putString("first_name", first_name.getText().toString());
             editor.commit(); // commit changes
             /////// Launch next activity //////
-            Intent intent = new Intent(LoginForm.this, LoginTransition.class);
+            Intent intent = new Intent(LoginForm.this, UserPreference.class);
             startActivity(intent);
         }
 
