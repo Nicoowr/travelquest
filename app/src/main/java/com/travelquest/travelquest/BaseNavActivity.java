@@ -55,9 +55,10 @@ public class BaseNavActivity extends AppCompatActivity{
                 Intent intent_map = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent_map);
                 break;
-            //case R.id.nav_user:
-            //    fragmentClass = ThirdFragment.class;
-            //    break;
+            case R.id.nav_user:
+                Intent intent_account = new Intent(getApplicationContext(), UserAccount.class);
+                startActivity(intent_account);
+                break;
             case R.id.nav_logout:
                 editor.clear();
                 editor.commit();

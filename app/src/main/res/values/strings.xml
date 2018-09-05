@@ -6,6 +6,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_password2">Retype password</string>
     <string name="prompt_first_name">First Name</string>
     <string name="prompt_last_name">Last Name</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -23,8 +24,10 @@
     <string name="title_activity_maps">Map</string>
     <string name="login_form_title">We\'d need some more information about you ...</string>
     <string name="password_fail">Wrong password</string>
+    <string name="passwords_dont_match">Passwords do not match</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="edit_information">Edit information</string>
 
 
     <!-- Homepage -->
@@ -43,6 +46,8 @@
     <string name="music">Music</string>
     <string name="party">Party</string>
     <string name="next">Next</string>
+    <string name="save_changes">Save changes</string>
+    <string name="edit_preferences">Edit preferences</string>
 
     <!-- Miscenalleous -->
     <string name="save">Save</string>

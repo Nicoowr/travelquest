@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 
@@ -29,7 +30,8 @@ public class LoginForm extends AppCompatActivity{
     SharedPreferences.Editor editor;
 
     EditText mail, first_name, last_name, password;
-    RadioGroup gender;
+    RadioGroup gender_group;
+    RadioButton gender_button;
     Button next;
 
     @Override
@@ -45,7 +47,7 @@ public class LoginForm extends AppCompatActivity{
         mail = (EditText) findViewById(R.id.form_mail);
         first_name = (EditText) findViewById(R.id.form_first_name);
         last_name = (EditText) findViewById(R.id.form_last_name);
-        gender = (RadioGroup) findViewById(R.id.form_gender);
+        gender_group = (RadioGroup) findViewById(R.id.form_gender);
         password = (EditText) findViewById(R.id.form_password);
         password.setText(intent.getStringExtra("password"));
 
@@ -62,11 +64,16 @@ public class LoginForm extends AppCompatActivity{
 
 
     private void createUser(){
+        // Get gender
+        int gender_id = gender_group.getCheckedRadioButtonId();
+        gender_button = (RadioButton) findViewById(gender_id);
+        String sex = gender_button.getText().toString();
+
         final HashMap<String, String> params = new HashMap<>();
 
         params.put("first_name", first_name.getText().toString());
         params.put("last_name", last_name.getText().toString());
-        params.put("gender", "Unknown");
+        params.put("gender", sex);
         params.put("mail", mail.getText().toString());
         params.put("password", password.getText().toString());
         params.put("account_type", "basic");

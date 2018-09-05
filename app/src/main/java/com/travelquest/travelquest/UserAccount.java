@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.travelquest.travelquest.database_handler.API;
 import com.travelquest.travelquest.database_handler.RequestHandler;
@@ -22,14 +25,9 @@ import com.travelquest.travelquest.login.LoginTransition;
 import java.util.HashMap;
 
 public class UserAccount extends BaseNavActivity {
-    //SharedPreferences pref;
-    //SharedPreferences.Editor editor;
+    EditText first_name, password, confirm_password;
 
-    //private DrawerLayout mDrawer;
-    //private Toolbar toolbar;
-    //private NavigationView nvDrawer;
-
-    Button save;
+    Button preference_save, information_save;
     CheckBox food, drink, sight, music, party;
 
     @Override
@@ -43,16 +41,27 @@ public class UserAccount extends BaseNavActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer, mDrawer);
 
-//        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-//        editor = pref.edit();
+        first_name = (EditText) findViewById(R.id.update_first_name);
+        password = (EditText) findViewById(R.id.update_password);
+        confirm_password = (EditText) findViewById(R.id.update_confirm_password);
+        information_save = (Button) findViewById(R.id.update_information_save);
+        information_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                updateUserInformation();
+                //Intent intent = new Intent(UserPreference.this, LoginTransition.class);
+                //startActivity(intent);
+            }
+        });
 
         food = (CheckBox) findViewById(R.id.account_food);
         drink = (CheckBox) findViewById(R.id.account_drink);
         sight = (CheckBox) findViewById(R.id.account_sight);
         music = (CheckBox) findViewById(R.id.account_music);
         party = (CheckBox) findViewById(R.id.account_party);
-        save = (Button) findViewById(R.id.account_save);
-        save.setOnClickListener(new View.OnClickListener() {
+        preference_save = (Button) findViewById(R.id.update_preferences_save);
+        preference_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -73,6 +82,22 @@ public class UserAccount extends BaseNavActivity {
         params.put("party",  String.valueOf(party.isChecked()));
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_UPDATE_USER_PREFERENCES, params);
+
+        request.execute();
+    }
+
+    protected void updateUserInformation(){
+        if(password.getText().toString().compareTo(confirm_password.getText().toString()) != 0){
+            Toast.makeText(getApplicationContext(),"Passwords do not match", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_mail",  pref.getString("mail", null));
+        params.put("first_name",  String.valueOf(food.isChecked()));
+        params.put("password",  password.getText().toString());
+
+        PerformNetworkRequest request = new PerformNetworkRequest(API.URL_UPDATE_USER_INFORMATION, params);
 
         request.execute();
     }
@@ -125,49 +150,7 @@ public class UserAccount extends BaseNavActivity {
         }
     }
 
-//   private void setupDrawerContent(NavigationView navigationView) {
-//       navigationView.setNavigationItemSelectedListener(
-//               new NavigationView.OnNavigationItemSelectedListener() {
-//                   @Override
-//                   public boolean onNavigationItemSelected(MenuItem menuItem) {
-//                       selectDrawerItem(menuItem);
-//                       return true;
-//                   }
-//               });
-//   }
-
-//   public void selectDrawerItem(MenuItem menuItem) {
-
-//       switch(menuItem.getItemId()) {
-//           case R.id.nav_home:
-//               Intent intent_home = new Intent(getApplicationContext(), Homepage.class);
-//               startActivity(intent_home);
-//               finish();
-//               break;
-//           case R.id.nav_map:
-//               Intent intent_map = new Intent(getApplicationContext(), MapsActivity.class);
-//               startActivity(intent_map);
-//               break;
-//           //case R.id.nav_user:
-//           //    fragmentClass = ThirdFragment.class;
-//           //    break;
-//           case R.id.nav_logout:
-//               editor.clear();
-//               editor.commit();
-//               Intent intent_logout = new Intent(getApplicationContext(), Login.class);
-//               startActivity(intent_logout);
-//               finish();
-//               break;
-
-//       }
-
-
-
-//       // Highlight the selected item has been done by NavigationView
-//       menuItem.setChecked(true);
-//       // Set action bar title
-//       setTitle(menuItem.getTitle());
-//       // Close the navigation drawer
-//       mDrawer.closeDrawers();
-//   }
+    protected boolean checkPassword(){
+        return password.getText().toString().compareTo(confirm_password.getText().toString()) == 0;
+    };
 }

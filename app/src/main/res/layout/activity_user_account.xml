@@ -10,6 +10,7 @@
     android:orientation="vertical"
     android:background="@drawable/main_wallpaper">
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,63 +25,104 @@
             android:background="@color/colorWhite"
             android:alpha="0.7"/>
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/login_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/preferences_padding"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/im_interested_in"
-                android:textSize="@dimen/homepage_textsize"/>
-            <CheckBox
-                android:id='@+id/account_food'
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/food"
-                android:textSize="@dimen/preferences_textsize"/>
-            <CheckBox
-                android:id='@+id/account_drink'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/drinks"/>
-            <CheckBox
-                android:id='@+id/account_sight'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/sightseeing"/>
-            <CheckBox
-                android:id='@+id/account_music'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/music"/>
-            <CheckBox
-                android:id='@+id/account_party'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_padding"
-                android:text="@string/party"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/edit_information"
+                    android:textSize="@dimen/preferences_textsize"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/update_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_first_name"/>
+                <EditText
+                    android:id="@+id/update_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"/>
+                <EditText
+                    android:id="@+id/update_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password2"/>
+                <Button
+                    android:id="@+id/update_information_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:padding="@dimen/preferences_padding"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/save_changes"/>
 
-            <Button
-                android:id="@+id/account_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/preferences_padding"
-                android:background="@color/colorPrimary"
-                android:text="@string/save"/>
 
-        </LinearLayout>
+                <!-- Preferences -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/edit_preferences"
+                    android:textSize="@dimen/preferences_textsize"
+                    android:textStyle="bold"/>
+                <CheckBox
+                    android:id='@+id/account_food'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/food"
+                    android:textSize="@dimen/preferences_textsize"/>
+                <CheckBox
+                    android:id='@+id/account_drink'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/preferences_textsize"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/drinks"/>
+                <CheckBox
+                    android:id='@+id/account_sight'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/preferences_textsize"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/sightseeing"/>
+                <CheckBox
+                    android:id='@+id/account_music'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/preferences_textsize"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/music"/>
+                <CheckBox
+                    android:id='@+id/account_party'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/preferences_textsize"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:text="@string/party"/>
+
+                <Button
+                    android:id="@+id/update_preferences_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/colorPrimary"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:padding="@dimen/preferences_padding"
+                    android:text="@string/save_changes"/>
+
+            </LinearLayout>
+        </ScrollView>
 
     </FrameLayout>
     <android.support.design.widget.NavigationView

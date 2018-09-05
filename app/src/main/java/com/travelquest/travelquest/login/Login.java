@@ -360,6 +360,7 @@ public class Login extends AppCompatActivity {
             }
         }
 
+        //TODO: check if there is not a security failure (log with mail only on facebook?)
         protected void facebookLog(String s){
             if (requestCode == CODE_POST_EXISTS){
                 try{
