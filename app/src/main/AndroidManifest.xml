@@ -64,6 +64,10 @@
             android:name=".UserAccount"
             android:label="@string/title_activity_maps">
         </activity>
+        <activity
+            android:name=".UserPoIs"
+            android:label="@string/title_activity_maps">
+        </activity>
 
         <!-- Preferences -->
         <activity

@@ -64,6 +64,10 @@ public class BaseNavActivity extends AppCompatActivity{
                 Intent intent_account = new Intent(getApplicationContext(), UserAccount.class);
                 startActivity(intent_account);
                 break;
+            case R.id.nav_user_pois:
+                Intent intent_user_pois = new Intent(getApplicationContext(), UserPoIs.class);
+                startActivity(intent_user_pois);
+                break;
             case R.id.nav_logout:
                 editor.clear();
                 editor.commit();

@@ -50,7 +50,7 @@ public class Reward extends AppCompatActivity{
         poiCongratulations.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
 
         poiTitle = (TextView) findViewById(R.id.poiTitle);
-        poiTitle.setText("You have found the " +  poi.getTitle() + "!");
+        poiTitle.setText("You found the " +  poi.getTitle() + "!");
         poiTitle.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
 
         poiDescription = (TextView) findViewById(R.id.poiDescription);
