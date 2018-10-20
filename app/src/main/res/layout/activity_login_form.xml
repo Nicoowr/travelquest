@@ -53,6 +53,15 @@
                     android:text=""
                     android:textSize="@dimen/preferences_textsize"/>
                 <EditText
+                    android:id='@+id/form_confirm_password'
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_padding"
+                    android:hint="Retype password"
+                    android:inputType="textPassword"
+                    android:text=""
+                    android:textSize="@dimen/preferences_textsize"/>
+                <EditText
                     android:id='@+id/form_first_name'
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -15,12 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.travelquest.travelquest.database_handler.API;
 import com.travelquest.travelquest.database_handler.RequestHandler;
 import com.travelquest.travelquest.login.Login;
 import com.travelquest.travelquest.login.LoginTransition;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -40,6 +44,9 @@ public class UserAccount extends BaseNavActivity {
         // Set up navigation bar
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer, mDrawer);
+        View headerView = nvDrawer.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_title);
+        navUsername.setText(pref.getString("first_name", null));
 
         first_name = (EditText) findViewById(R.id.update_first_name);
         password = (EditText) findViewById(R.id.update_password);
@@ -94,8 +101,10 @@ public class UserAccount extends BaseNavActivity {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("user_mail",  pref.getString("mail", null));
-        params.put("first_name",  String.valueOf(food.isChecked()));
-        params.put("password",  password.getText().toString());
+        if(!first_name.getText().toString().isEmpty())
+            params.put("first_name",  first_name.getText().toString());
+        if(!password.getText().toString().isEmpty())
+            params.put("password",  password.getText().toString());
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_UPDATE_USER_INFORMATION, params);
 
@@ -132,7 +141,18 @@ public class UserAccount extends BaseNavActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("debug_pref", s);
+            Log.d("debug_update", s);
+            try {
+                JSONObject temp = new JSONObject(s);
+                boolean result = temp.getBoolean("error");
+                if(result)
+                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_LONG).show();
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
             /////// Launch next activity //////
             Intent intent = new Intent(UserAccount.this, Homepage.class);
             startActivity(intent);

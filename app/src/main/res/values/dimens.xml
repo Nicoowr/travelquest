@@ -18,6 +18,10 @@
 
     <dimen name="login_transition_textsize">40dp</dimen>
 
+    <dimen name="reward_congratulations">30dp</dimen>
+    <dimen name="reward_title">40dp</dimen>
+    <dimen name="reward_description">20dp</dimen>
+
 
     <dimen name="alpha">0.7</dimen>
 </resources>

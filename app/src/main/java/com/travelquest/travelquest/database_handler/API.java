@@ -13,4 +13,11 @@ public class API {
     public static final String URL_UPDATE_USER_PREFERENCES = ROOT_URL + "updateuserpreferences";
     public static final String URL_UPDATE_USER_INFORMATION = ROOT_URL + "updateuserinformation";
 
+    public static final String URL_GET_POIS = ROOT_URL + "getpois";
+    public static final String URL_GET_USER_POIS = ROOT_URL + "getuserpois";
+    public static final String POST = "post";
+    public static final String GET = "get";
+
+
+
 }

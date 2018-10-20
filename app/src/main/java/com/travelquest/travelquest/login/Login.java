@@ -344,6 +344,7 @@ public class Login extends AppCompatActivity {
 
                         editor.putString("first_name", temp.get("first_name").toString());
                         editor.putString("mail", temp.get("mail").toString());
+                        editor.putString("id_user", temp.get("id_user").toString());
                         editor.commit(); // commit changes
 
                         /////// Launch next activity //////

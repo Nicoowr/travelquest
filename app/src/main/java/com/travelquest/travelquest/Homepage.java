@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.travelquest.travelquest.login.Login;
 
@@ -33,6 +34,9 @@ public class Homepage extends BaseNavActivity {
         // Set up navigation bar
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer, mDrawer);
+        View headerView = nvDrawer.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_title);
+        navUsername.setText(pref.getString("first_name", null));
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
@@ -50,6 +54,7 @@ public class Homepage extends BaseNavActivity {
             }
         });
     }
+
 
 }
 

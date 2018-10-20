@@ -8,6 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.travelquest.travelquest.login.Login;
 
@@ -21,6 +23,8 @@ public class BaseNavActivity extends AppCompatActivity{
     protected Toolbar toolbar;
     protected NavigationView nvDrawer;
 
+    TextView header_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -28,6 +32,7 @@ public class BaseNavActivity extends AppCompatActivity{
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
+
 
 
     }

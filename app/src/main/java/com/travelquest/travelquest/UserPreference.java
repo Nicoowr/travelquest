@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 
 import com.travelquest.travelquest.database_handler.API;
 import com.travelquest.travelquest.database_handler.RequestHandler;
 import com.travelquest.travelquest.login.LoginTransition;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -97,6 +101,18 @@ public class UserPreference extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.d("debug_pref", s);
+            try {
+                JSONObject temp = new JSONObject(s);
+                boolean result = temp.getBoolean("error");
+                if(result) {
+                    Toast.makeText(getApplicationContext(), "An error occurred. Please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Preferences saved.", Toast.LENGTH_SHORT).show();
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
             /////// Launch next activity //////
             Intent intent = new Intent(UserPreference.this, LoginTransition.class);
             startActivity(intent);

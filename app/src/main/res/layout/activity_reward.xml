@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/poiCongratulations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/reward_congratulations"
+        android:textColor="@color/colorWhite"
+        />
+    <TextView
+        android:id="@+id/poiTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/reward_title"
+        android:textColor="@color/colorWhite"
+        />
+
+    <TextView
+        android:id="@+id/poiDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/reward_description"
+        android:textColor="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/poiPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_title_padding"/>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_margin="@dimen/preferences_padding"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/close"/>
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 
 import com.travelquest.travelquest.R;
@@ -20,6 +21,7 @@ import com.travelquest.travelquest.database_handler.API;
 import com.travelquest.travelquest.database_handler.RequestHandler;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -29,7 +31,7 @@ public class LoginForm extends AppCompatActivity{
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    EditText mail, first_name, last_name, password;
+    EditText mail, first_name, last_name, password, confirm_password;
     RadioGroup gender_group;
     RadioButton gender_button;
     Button next;
@@ -50,6 +52,7 @@ public class LoginForm extends AppCompatActivity{
         gender_group = (RadioGroup) findViewById(R.id.form_gender);
         password = (EditText) findViewById(R.id.form_password);
         password.setText(intent.getStringExtra("password"));
+        confirm_password = (EditText) findViewById(R.id.form_confirm_password);
 
 
         mail.setText(pref.getString("mail", null));
@@ -57,6 +60,15 @@ public class LoginForm extends AppCompatActivity{
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(password.getText().toString().compareTo(confirm_password.getText().toString()) != 0){
+                    Toast.makeText(getApplicationContext(),"Passwords do not match", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(first_name.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Please specify your first name", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 createUser();
             }
         });
@@ -67,10 +79,13 @@ public class LoginForm extends AppCompatActivity{
         // Get gender
         int gender_id = gender_group.getCheckedRadioButtonId();
         gender_button = (RadioButton) findViewById(gender_id);
-        String sex = gender_button.getText().toString();
+        String sex;
+        if(gender_button == null)
+            sex = "Unknown";
+        else
+            sex = gender_button.getText().toString();
 
         final HashMap<String, String> params = new HashMap<>();
-
         params.put("first_name", first_name.getText().toString());
         params.put("last_name", last_name.getText().toString());
         params.put("gender", sex);
@@ -115,6 +130,18 @@ public class LoginForm extends AppCompatActivity{
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.d("debug_pref", s);
+            try {
+                JSONObject temp = new JSONObject(s);
+                boolean result = temp.getBoolean("error");
+                if(result) {
+                    Toast.makeText(getApplicationContext(), "An error occurred. Please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "User created successfully", Toast.LENGTH_LONG).show();
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
             //////// Create user session ////////
             editor.putString("first_name", first_name.getText().toString());
             editor.commit(); // commit changes
