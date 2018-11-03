@@ -21,6 +21,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -65,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<PoI> mPois;
     private List<PoI> mPoisID;
     private List<PoI> mUserPois;
+    private Button hintButton;
 
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -84,6 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
+    private static final int CLOSE_RADIUS = 20;
+    private static final int FAR_RADIUS = 100;
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
@@ -108,7 +113,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 
         // Retrieve previous location if exists
@@ -230,6 +234,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         loadPois();
 
+        hintButton = (Button) findViewById(R.id.hintButton);
+        hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHint();
+            }
+        });
+
     }
 
     LocationCallback mLocationCallback = new LocationCallback(){
@@ -243,7 +255,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //    mCurrLocationMarker.remove();
                 //}
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
                 checkNewLocation();
             }
         }
@@ -342,6 +354,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         updateLocationUI();
     }
 
+
+    protected void showHint(){
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+        dlgAlert.setMessage("There are " + String.valueOf(poiNumber()) + " point(s) of interest within 100 meters.");
+        dlgAlert.setTitle("Here is a hint!");
+        dlgAlert.setPositiveButton("OK",
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //dismiss
+                }
+            });
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
+    }
+
+    protected int poiNumber(){
+        LatLng myPos = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+        int count = 0;
+        for(int i = 0; i < mPois.size(); i++){
+            if(SphericalUtil.computeDistanceBetween(myPos, mPois.get(i).getPosition()) < FAR_RADIUS){
+                count += 1;
+            }
+        }
+        return count;
+    }
     /**
      * Load available PoIs and discovered PoIs
      */
@@ -359,16 +396,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected void checkNewLocation(){
         LatLng myPos = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+        Log.d("debug_Check_pos", mUserPois.toString());
         for(int i = 0; i < mPois.size(); i++){
-            Log.d("debug_Check_pos", mPois.get(i).toString());
-            if(SphericalUtil.computeDistanceBetween(myPos, mPois.get(i).getPosition()) < 20){
-                Intent intent = new Intent(MapsActivity.this, Reward.class);
-                intent.putExtra("poi", mPois.get(i));
-                startActivity(intent);
+            if((SphericalUtil.computeDistanceBetween(myPos, mPois.get(i).getPosition()) < CLOSE_RADIUS) && (!userVisitedPoi(mPois.get(i).getID()))){
+                Log.d("debug_add_poi", mPois.get(i).toString());
+                mUserPois.add(mPois.get(i));
+                HashMap<String, String > params = new HashMap<>();
+                params.put("index_poi", String.valueOf(i));
+                params.put("id_user", pref.getString("id_user", null));
+                params.put("id_poi", String.valueOf(mPois.get(i).getID()));
+                PerformNetworkRequest requestUserPois = new PerformNetworkRequest(API.URL_ADD_USER_POI, API.POST, params);
+                requestUserPois.execute();
 
             }
         }
     }
+
+    protected boolean userVisitedPoi(int id){
+       for(PoI poi: mUserPois){
+           if(poi.getID() == id){
+               return true;
+           }
+       }
+       return false;
+    }
+
 
 
 
@@ -408,18 +460,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("debug_update", s);
+
             try {
                 JSONObject temp = new JSONObject(s);
                 boolean result = temp.getBoolean("error");
-                if(result)
-                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_LONG).show();
+                //if(result)
+                //    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_LONG).show();
+                //else
+                //    Toast.makeText(getApplicationContext(), "Points of interests ", Toast.LENGTH_LONG).show();
 
 
-                //if(this.url == API.URL_GET_POIS)
-                stringToPois(temp);
+                if(this.url == API.URL_ADD_USER_POI){
+                    Log.d("debug_async", params.get("id_poi"));
+                    Intent intent = new Intent(MapsActivity.this, Reward.class);
+                    intent.putExtra("poi", mPois.get(Integer.valueOf(params.get("index_poi"))));
+                    startActivity(intent);
+                }else {
+                    stringToPois(temp);
+                }
                 //else if (this.url == API.URL_GET_USER_POIS) {
                 //    Log.d("debug_Knownpois", temp.toString());
                 //    storeKnownPois(temp);
@@ -464,6 +522,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     else if (this.url == API.URL_GET_USER_POIS) {
                         mUserPois.add(newPoI);
                         mMap.addMarker(new MarkerOptions().position(newPoI.getPosition()).title(title));
+                        Log.d("async_debug", "user poi added");
                     }
                 }
                 //Log.d("debug_pois", Double.toString(pois.getJSONArray("pois").getJSONObject(0).getDouble("latitude")));

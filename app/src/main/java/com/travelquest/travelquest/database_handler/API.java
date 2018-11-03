@@ -15,6 +15,7 @@ public class API {
 
     public static final String URL_GET_POIS = ROOT_URL + "getpois";
     public static final String URL_GET_USER_POIS = ROOT_URL + "getuserpois";
+    public static final String URL_ADD_USER_POI = ROOT_URL + "adduserpoi";
     public static final String POST = "post";
     public static final String GET = "get";
 

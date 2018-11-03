@@ -47,19 +47,21 @@ public class Reward extends AppCompatActivity{
 
         poiCongratulations = (TextView) findViewById(R.id.poiCongratulations);
         poiCongratulations.setText("Congratulations " + pref.getString("first_name", null) + "!");
-        poiCongratulations.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        poiCongratulations.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
 
         poiTitle = (TextView) findViewById(R.id.poiTitle);
         poiTitle.setText("You found the " +  poi.getTitle() + "!");
-        poiTitle.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        poiTitle.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
 
         poiDescription = (TextView) findViewById(R.id.poiDescription);
         poiDescription.setText(poi.getDescription());
+        poiDescription.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
 
 
         picture = (ImageView) findViewById(R.id.poiPicture);
         Log.d("debug_reward", poi.getImageLink());
         Picasso.with(Reward.this).load(poi.getImageLink()).into(picture);
+        picture.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
         //ImageLoadTask imageLoadTask = new ImageLoadTask(poi.getImageLink(), picture);
 
         // Next button

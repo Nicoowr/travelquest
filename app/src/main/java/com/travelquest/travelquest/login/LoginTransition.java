@@ -34,7 +34,7 @@ public class LoginTransition extends AppCompatActivity {
         first_name = pref.getString("first_name", null);
         greetings = (TextView) findViewById(R.id.greetings);
         greetings.setText("Welcome " + first_name);
-        greetings.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        greetings.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
 
 
         ImageView user_picture = (ImageView) findViewById(R.id.profilePic);

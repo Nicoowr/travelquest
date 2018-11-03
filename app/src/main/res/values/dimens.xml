@@ -2,6 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_padding">15dp</dimen>
 
     <dimen name="login_title_textsize">40dp</dimen>
     <dimen name="login_title_padding">20dp</dimen>
@@ -18,9 +19,13 @@
 
     <dimen name="login_transition_textsize">40dp</dimen>
 
-    <dimen name="reward_congratulations">30dp</dimen>
-    <dimen name="reward_title">40dp</dimen>
-    <dimen name="reward_description">20dp</dimen>
+    <dimen name="reward_congratulations">20sp</dimen>
+    <dimen name="reward_title">30sp</dimen>
+    <dimen name="reward_description">15sp</dimen>
+
+    <dimen name="poisList_big_title_size">30dp</dimen>
+    <dimen name="poisList_title_size">20dp</dimen>
+    <dimen name="poisList_info_size">15dp</dimen>
 
 
     <dimen name="alpha">0.7</dimen>

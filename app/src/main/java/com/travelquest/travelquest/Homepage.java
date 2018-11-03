@@ -47,7 +47,7 @@ public class Homepage extends BaseNavActivity {
             @Override
             public void onClick(View view) {
 
-                loading.setVisibility(View.VISIBLE);
+                //loading.setVisibility(View.VISIBLE);
 
                 Intent intent = new Intent(Homepage.this, MapsActivity.class);
                 startActivity(intent);

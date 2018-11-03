@@ -26,21 +26,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="top"
+            android:layout_gravity="top|center_horizontal"
             android:padding="@dimen/activity_padding">
 
             <TextView
-                android:id="@+id/userPoIsTitle"
+                android:id="@+id/poiInfoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="@dimen/poisList_big_title_size"
-                android:textStyle="bold"/>
-            <ListView
-                android:id="@+id/poisView"
+                android:textSize="@dimen/reward_congratulations"
+                android:textColor="@color/colorBlack"
+                />
+            <TextView
+                android:id="@+id/poiInfoCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:choiceMode="multipleChoice"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/reward_title"
+                android:textColor="@color/colorBlack"
+                />
+
+            <TextView
+                android:id="@+id/poiInfoDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/reward_description"
+                android:textColor="@color/colorBlack" />
+
+            <ImageView
+                android:id="@+id/poiInfoPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/login_title_padding"/>
+
 
         </LinearLayout>
     </FrameLayout>
