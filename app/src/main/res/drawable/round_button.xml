@@ -3,11 +3,13 @@
     <item android:state_pressed="false">
         <shape android:shape="oval">
             <solid android:color="@color/colorPrimary"/>
+            <gradient android:angle="-45" android:startColor="@color/colorPrimary" android:endColor="@color/colorAccent" />
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="oval">
             <solid android:color="@color/colorAccent"/>
+            <gradient android:angle="-45" android:startColor="@color/colorAccent" android:endColor="@color/colorPrimaryDark" />
         </shape>
     </item>
 </selector>
