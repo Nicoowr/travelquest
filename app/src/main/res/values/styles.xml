@@ -25,4 +25,9 @@
         <item name="android:fontFamily">bigshot_one</item>
     </style>
 
+    <!-- Text hint -->
+    <style name="HintAppearanceFocused" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
 </resources>

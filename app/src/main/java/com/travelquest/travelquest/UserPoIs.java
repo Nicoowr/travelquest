@@ -60,10 +60,8 @@ public class UserPoIs extends BaseNavActivity{
         pageTitle.setText(pref.getString("first_name", null) + "'s discoveries");
 
         poisView = (ListView) findViewById(R.id.poisView);
-    }
 
-    @Override
-    protected void onResume() {
+        // Populate
         poisList = new ArrayList<>();
 
         HashMap<String, String > params = new HashMap<>();
@@ -72,6 +70,10 @@ public class UserPoIs extends BaseNavActivity{
         requestUserPois.execute();
 
         poisView.setOnItemClickListener(listener);
+    }
+
+    @Override
+    protected void onResume() {
         super.onResume();
     }
 

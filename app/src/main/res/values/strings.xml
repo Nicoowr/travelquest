@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TravelQuest</string>
-    <string name="title1">Travel</string>
-    <string name="title2">Quest</string>
+    <string name="title1"> Travel</string>
+    <string name="title2">Quest \</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

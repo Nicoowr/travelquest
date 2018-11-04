@@ -26,25 +26,27 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:alpha="0.7"/>
+            android:background="@drawable/linear_layout_shape">
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center_vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/i_want_to"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="@dimen/homepage_button_padding"
-                android:textSize="@dimen/homepage_textsize"/>
+                android:fontFamily="sans-serif"
+                android:gravity="center_horizontal"
+                android:text="@string/i_want_to"
+                android:textSize="@dimen/homepage_textsize" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -101,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/big_round_button"
                 android:text="@string/start"/>
 
             <ProgressBar
