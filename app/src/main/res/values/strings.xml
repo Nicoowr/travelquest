@@ -31,11 +31,12 @@
 
 
     <!-- Homepage -->
-    <string name="i_want_to">I want to...</string>
-    <string name="travel_alone">Travel alone</string>
-    <string name="travel_group">Travel with people</string>
-    <string name="meet_local_people">Meet local people</string>
-    <string name="meet_foreign_people">Meet foreign people</string>
+    <string name="i_want_to">I want to travel...</string>
+    <string name="travel_alone">Alone</string>
+    <string name="travel_group">With people</string>
+    <string name="i_want_to_meet">I want to meet...</string>
+    <string name="meet_local_people">Local people</string>
+    <string name="meet_foreign_people">Foreign people</string>
     <string name="start">Start!</string>
 
     <!-- Preferences -->

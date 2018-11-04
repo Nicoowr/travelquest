@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -18,6 +19,10 @@ import com.travelquest.travelquest.login.Login;
 
 public class Homepage extends BaseNavActivity {
 
+    Button travel_alone;
+    Button travel_with_people;
+    Button meet_local;
+    Button meet_foreign;
     Button start_button;
     ProgressBar loading;
 
@@ -40,6 +45,48 @@ public class Homepage extends BaseNavActivity {
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
+
+        // Setting buttons properties
+        travel_alone = (Button) findViewById(R.id.travel_alone);
+        travel_alone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        travel_with_people = (Button) findViewById(R.id.travel_with_people);
+        travel_with_people.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        meet_local = (Button) findViewById(R.id.meet_local);
+        meet_local.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        meet_foreign = (Button) findViewById(R.id.meet_foreign_people);
+        meet_foreign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
 
         loading = (ProgressBar) findViewById(R.id.loading);
         start_button = (Button) findViewById(R.id.start_button);

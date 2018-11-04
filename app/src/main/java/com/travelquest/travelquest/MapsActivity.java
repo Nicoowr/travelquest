@@ -89,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean mLocationPermissionGranted;
     private static final int CLOSE_RADIUS = 20;
     private static final int FAR_RADIUS = 100;
+    private static final int VERY_FAR_RADIUS = 1000;
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
@@ -213,8 +214,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //updateLocationUI();
 
         mLocationRequest = LocationRequest.create();
-        mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(3000);
+        mLocationRequest.setFastestInterval(3000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -357,7 +358,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected void showHint(){
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("There are " + String.valueOf(poiNumber()) + " point(s) of interest within 100 meters.");
+        dlgAlert.setMessage("There are " + String.valueOf(poiNumber(FAR_RADIUS)) + " point(s) of interest within 100 meters.\n" +
+                "There are " + String.valueOf(poiNumber(VERY_FAR_RADIUS)) + " point(s) of interest within 1 kilometer.");
         dlgAlert.setTitle("Here is a hint!");
         dlgAlert.setPositiveButton("OK",
             new DialogInterface.OnClickListener() {
@@ -369,11 +371,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dlgAlert.create().show();
     }
 
-    protected int poiNumber(){
+    protected int poiNumber(int radius){
         LatLng myPos = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
         int count = 0;
         for(int i = 0; i < mPois.size(); i++){
-            if(SphericalUtil.computeDistanceBetween(myPos, mPois.get(i).getPosition()) < FAR_RADIUS){
+            if(SphericalUtil.computeDistanceBetween(myPos, mPois.get(i).getPosition()) < radius){
                 count += 1;
             }
         }

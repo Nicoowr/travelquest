@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:drawable="@drawable/worldwide"
+        android:width="@dimen/homepage_button_icon"
+        android:height="@dimen/homepage_button_icon"
+        android:bottom="@dimen/homepage_button_padding"
+        />
+
+</layer-list >

@@ -13,9 +13,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +72,10 @@ public class Login extends AppCompatActivity {
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
+
+        FrameLayout layout = (FrameLayout)findViewById(R.id.login_layout);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        layout.startAnimation(anim);
 
         email = (AutoCompleteTextView) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);

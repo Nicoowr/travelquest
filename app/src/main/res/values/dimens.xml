@@ -11,7 +11,9 @@
     <dimen name="login_form_title">20dp</dimen>
 
     <dimen name="homepage_textsize">30dp</dimen>
-    <dimen name="homepage_button_padding">30dp</dimen>
+    <dimen name="homepage_button_margin">30dp</dimen>
+    <dimen name="homepage_button_padding">10dp</dimen>
+    <dimen name="homepage_button_icon">64dp</dimen>
 
     <dimen name="preferences_textsize">20dp</dimen>
     <dimen name="preferences_margin">15dp</dimen>
@@ -27,6 +29,8 @@
     <dimen name="poisList_big_title_size">30dp</dimen>
     <dimen name="poisList_title_size">20dp</dimen>
     <dimen name="poisList_info_size">15dp</dimen>
+
+
 
 
     <dimen name="alpha">0.7</dimen>

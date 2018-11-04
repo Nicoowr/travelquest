@@ -42,61 +42,70 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/homepage_button_padding"
+                android:layout_marginTop="@dimen/homepage_button_margin"
                 android:fontFamily="sans-serif"
                 android:gravity="center_horizontal"
                 android:text="@string/i_want_to"
                 android:textSize="@dimen/homepage_textsize" />
 
-            <RadioGroup
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/homepage_button_padding">
-
-
-                <RadioButton
+                android:orientation="horizontal">
+                <Button
                     android:id="@+id/travel_alone"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/travel_alone"
-                    android:textSize="@dimen/preferences_textsize"
-                    />
-                <RadioButton
-                    android:id="@+id/travel_group"
-                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/homepage_button_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/travel_alone"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/travel_alone"/>
+                <Button
+                    android:id="@+id/travel_with_people"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/travel_alone"
-                    android:text="@string/travel_group"
-                    android:textSize="@dimen/preferences_textsize"
-                    />
-            </RadioGroup>
-
+                    android:layout_margin="@dimen/homepage_button_margin"
+                    android:layout_weight="0.5"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/travel_with_people"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/travel_group"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/i_want_to"
+                android:text="@string/i_want_to_meet"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/homepage_button_padding"
+
                 android:textSize="@dimen/homepage_textsize"/>
-            <RadioGroup
-                android:id="@+id/meet_people"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/homepage_button_padding">
-                <RadioButton
-                    android:id="@+id/meet_local_people"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/meet_local"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/meet_local_people"
-                    android:textSize="@dimen/preferences_textsize"/>
-                <RadioButton
+                    android:layout_margin="@dimen/homepage_button_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/meet_local"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/meet_local_people"/>
+                <Button
                     android:id="@+id/meet_foreign_people"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/meet_foreign_people"
-                    android:textSize="@dimen/preferences_textsize"/>
-            </RadioGroup>
+                    android:layout_margin="@dimen/homepage_button_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/meet_foreign"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/meet_foreign_people"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/start_button"
