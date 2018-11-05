@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -39,8 +42,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<PoI> mPoisID;
     private List<PoI> mUserPois;
     private Button hintButton;
+    private Bitmap customMarker;
 
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -123,6 +130,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         setContentView(R.layout.activity_maps);
+
+        //Construct markers
+        int height = 70;
+        int width = 70;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.compass);
+        Bitmap b=bitmapdraw.getBitmap();
+        customMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         // Construct GeoDataClient
         mGeoDataClient = Places.getGeoDataClient(this);
@@ -205,6 +219,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.custom_style));
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
+
         mMap = googleMap;
 
         // Prompt the user for permission.
@@ -523,7 +551,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mPois.add(newPoI);
                     else if (this.url == API.URL_GET_USER_POIS) {
                         mUserPois.add(newPoI);
-                        mMap.addMarker(new MarkerOptions().position(newPoI.getPosition()).title(title));
+                        mMap.addMarker(new MarkerOptions()
+                                .position(newPoI.getPosition())
+                                .title(title)
+                                .icon(BitmapDescriptorFactory.fromBitmap(customMarker))
+                                .flat(true));
                         Log.d("async_debug", "user poi added");
                     }
                 }

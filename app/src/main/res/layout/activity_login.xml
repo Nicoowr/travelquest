@@ -10,17 +10,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.travelquest.travelquest.login.Login"
-    android:background="@drawable/main_wallpaper">
+    android:background="@color/colorPrimary">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/app_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="@dimen/login_title_padding">
 
             <TextView
@@ -33,28 +34,24 @@
                 android:fontFamily="@font/bigshot_one"
                 android:text="@string/title1"
                 android:textAlignment="textEnd"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/login_title_textsize"
                 android:textStyle="bold"
-                android:shadowColor="@color/colorWhite"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"/>
+                
+/>
 
             <TextView
+                android:id="@+id/title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/title1"
                 android:fontFamily="@font/bigshot_one"
                 android:text="@string/title2"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/login_title_textsize"
                 android:textStyle="bold|italic"
-                android:shadowColor="@color/colorWhite"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"/>
+/>
 
         </RelativeLayout>
 
@@ -62,6 +59,7 @@
             android:id="@+id/login_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -152,7 +150,7 @@
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
 

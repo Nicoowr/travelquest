@@ -2,6 +2,9 @@ package com.travelquest.travelquest.login;
 
 
 // Front End Dependencies
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -15,10 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +58,10 @@ public class Login extends AppCompatActivity {
     private static final int CODE_POST_CREATE = 1026;
     private static final int CODE_POST_EXISTS = 1027;
 
+    private static final float TITLE_MOVE = -600f;
+
+    RelativeLayout app_title;
+
     Button register;
     CallbackManager callbackManager;
     SharedPreferences pref;
@@ -73,9 +82,74 @@ public class Login extends AppCompatActivity {
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
 
-        FrameLayout layout = (FrameLayout)findViewById(R.id.login_layout);
+        final RelativeLayout app_title = (RelativeLayout) findViewById(R.id.app_title);
+        final FrameLayout layout = (FrameLayout)findViewById(R.id.login_layout);
+        layout.setVisibility(View.INVISIBLE);
+
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        layout.startAnimation(anim);
+        anim.setDuration(1000);
+        final Animation layout_anim = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        anim.setDuration(1000);
+        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(app_title, "translationY", 0f, TITLE_MOVE);
+        translateAnimation.setDuration(1500);
+
+        app_title.startAnimation(anim);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                translateAnimation.start();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        translateAnimation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                layout.startAnimation(layout_anim);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        layout_anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                layout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
 
         email = (AutoCompleteTextView) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
