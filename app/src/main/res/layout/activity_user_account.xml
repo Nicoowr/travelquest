@@ -86,41 +86,67 @@
                     android:text="@string/edit_preferences"
                     android:textSize="@dimen/preferences_textsize"
                     android:textStyle="bold"/>
-                <CheckBox
-                    android:id='@+id/account_food'
-                    android:layout_width="match_parent"
+                <GridLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/preferences_padding"
-                    android:text="@string/food"
-                    android:textSize="@dimen/preferences_textsize"/>
-                <CheckBox
-                    android:id='@+id/account_drink'
-                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal">
+                    <Button
+                        android:id="@+id/account_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/food"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/food"/>
+                    <Button
+                        android:id="@+id/account_drink"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/drink"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/drinks"/>
+                    <Button
+                        android:id="@+id/account_sight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/sight"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/sightseeing"/>
+                </GridLayout>
+                <GridLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/preferences_textsize"
-                    android:layout_margin="@dimen/preferences_padding"
-                    android:text="@string/drinks"/>
-                <CheckBox
-                    android:id='@+id/account_sight'
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/preferences_textsize"
-                    android:layout_margin="@dimen/preferences_padding"
-                    android:text="@string/sightseeing"/>
-                <CheckBox
-                    android:id='@+id/account_music'
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/preferences_textsize"
-                    android:layout_margin="@dimen/preferences_padding"
-                    android:text="@string/music"/>
-                <CheckBox
-                    android:id='@+id/account_party'
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/preferences_textsize"
-                    android:layout_margin="@dimen/preferences_padding"
-                    android:text="@string/party"/>
+                    android:layout_gravity="center_horizontal">
+                    <Button
+                        android:id="@+id/account_music"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/music"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/music"/>
+                    <Button
+                        android:id="@+id/account_party"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/party"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/party"/>
+
+                </GridLayout>
 
                 <Button
                     android:id="@+id/update_preferences_save"

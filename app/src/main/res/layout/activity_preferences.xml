@@ -23,56 +23,85 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/preferences_padding"
+
+            android:layout_gravity="center_vertical|center_horizontal"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/preferences_margin"
                 android:gravity="center_horizontal"
                 android:text="@string/im_interested_in"
                 android:textSize="@dimen/homepage_textsize"/>
-            <CheckBox
-                android:id='@+id/preference_food'
-                android:layout_width="match_parent"
+            <GridLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/preferences_margin"
-                android:text="@string/food"
-                android:textSize="@dimen/preferences_textsize"/>
-            <CheckBox
-                android:id='@+id/preference_drink'
-                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:id="@+id/preference_food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/food"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/food"/>
+                <Button
+                    android:id="@+id/preference_drink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/drink"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/drinks"/>
+                <Button
+                    android:id="@+id/preference_sight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/sight"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/sightseeing"/>
+            </GridLayout>
+            <GridLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_margin"
-                android:text="@string/drinks"/>
-            <CheckBox
-                android:id='@+id/preference_sight'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_margin"
-                android:text="@string/sightseeing"/>
-            <CheckBox
-                android:id='@+id/preference_music'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_margin"
-                android:text="@string/music"/>
-            <CheckBox
-                android:id='@+id/preference_party'
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/preferences_textsize"
-                android:layout_margin="@dimen/preferences_margin"
-                android:text="@string/party"/>
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:id="@+id/preference_music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/music"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/music"/>
+                <Button
+                    android:id="@+id/preference_party"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/preferences_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/homepage_button_padding"
+                    android:drawableTop="@drawable/party"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/party"/>
+
+            </GridLayout>
+
 
             <Button
                 android:id="@+id/preferences_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/preferences_margin"
+                android:layout_margin="@dimen/preferences_button_margin"
                 android:background="@drawable/big_round_button"
                 android:text="@string/next"/>
 

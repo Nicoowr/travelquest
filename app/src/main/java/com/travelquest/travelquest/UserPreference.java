@@ -27,7 +27,7 @@ public class UserPreference extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     Button next;
-    CheckBox food, drink, sight, music, party;
+    Button food, drink, sight, music, party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -37,11 +37,56 @@ public class UserPreference extends AppCompatActivity {
 
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 
-        food = (CheckBox) findViewById(R.id.preference_food);
-        drink = (CheckBox) findViewById(R.id.preference_drink);
-        sight = (CheckBox) findViewById(R.id.preference_sight);
-        music = (CheckBox) findViewById(R.id.preference_music);
-        party = (CheckBox) findViewById(R.id.preference_party);
+        food = (Button) findViewById(R.id.preference_food);
+        drink = (Button) findViewById(R.id.preference_drink);
+        sight = (Button) findViewById(R.id.preference_sight);
+        music = (Button) findViewById(R.id.preference_music);
+        party = (Button) findViewById(R.id.preference_party);
+        food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        drink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        sight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        party.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
 
         next = (Button) findViewById(R.id.preferences_next);
         next.setOnClickListener(new View.OnClickListener() {
@@ -58,11 +103,11 @@ public class UserPreference extends AppCompatActivity {
     protected void createUserPreferences(){
         HashMap<String, String> params = new HashMap<>();
         params.put("user_mail",  pref.getString("mail", null));
-        params.put("food",  String.valueOf(food.isChecked()));
-        params.put("drink",  String.valueOf(drink.isChecked()));
-        params.put("sight",  String.valueOf(sight.isChecked()));
-        params.put("music",  String.valueOf(music.isChecked()));
-        params.put("party",  String.valueOf(party.isChecked()));
+        params.put("food",  String.valueOf(food.isSelected()));
+        params.put("drink",  String.valueOf(drink.isSelected()));
+        params.put("sight",  String.valueOf(sight.isSelected()));
+        params.put("music",  String.valueOf(music.isSelected()));
+        params.put("party",  String.valueOf(party.isSelected()));
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_CREATE_USER_PREFERENCES, params);
 

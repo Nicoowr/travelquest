@@ -32,7 +32,7 @@ public class UserAccount extends BaseNavActivity {
     EditText first_name, password, confirm_password;
 
     Button preference_save, information_save;
-    CheckBox food, drink, sight, music, party;
+    Button food, drink, sight, music, party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -62,11 +62,56 @@ public class UserAccount extends BaseNavActivity {
             }
         });
 
-        food = (CheckBox) findViewById(R.id.account_food);
-        drink = (CheckBox) findViewById(R.id.account_drink);
-        sight = (CheckBox) findViewById(R.id.account_sight);
-        music = (CheckBox) findViewById(R.id.account_music);
-        party = (CheckBox) findViewById(R.id.account_party);
+        food = (Button) findViewById(R.id.account_food);
+        drink = (Button) findViewById(R.id.account_drink);
+        sight = (Button) findViewById(R.id.account_sight);
+        music = (Button) findViewById(R.id.account_music);
+        party = (Button) findViewById(R.id.account_party);
+        food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        drink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        sight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
+        party.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.isSelected())
+                    v.setSelected(false);
+                else
+                    v.setSelected(true);
+            }
+        });
         preference_save = (Button) findViewById(R.id.update_preferences_save);
         preference_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +127,11 @@ public class UserAccount extends BaseNavActivity {
     protected void updateUserPreferences(){
         HashMap<String, String> params = new HashMap<>();
         params.put("user_mail",  pref.getString("mail", null));
-        params.put("food",  String.valueOf(food.isChecked()));
-        params.put("drink",  String.valueOf(drink.isChecked()));
-        params.put("sight",  String.valueOf(sight.isChecked()));
-        params.put("music",  String.valueOf(music.isChecked()));
-        params.put("party",  String.valueOf(party.isChecked()));
+        params.put("food",  String.valueOf(food.isSelected()));
+        params.put("drink",  String.valueOf(drink.isSelected()));
+        params.put("sight",  String.valueOf(sight.isSelected()));
+        params.put("music",  String.valueOf(music.isSelected()));
+        params.put("party",  String.valueOf(party.isSelected()));
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_UPDATE_USER_PREFERENCES, params);
 

@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
         final Animation layout_anim = AnimationUtils.loadAnimation(this, R.anim.fadein);
         anim.setDuration(1000);
         final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(app_title, "translationY", 0f, TITLE_MOVE);
-        translateAnimation.setDuration(1500);
+        translateAnimation.setDuration(1000);
 
         app_title.startAnimation(anim);
         anim.setAnimationListener(new Animation.AnimationListener() {
