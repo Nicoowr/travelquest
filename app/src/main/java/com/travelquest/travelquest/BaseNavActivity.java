@@ -59,14 +59,17 @@ public class BaseNavActivity extends AppCompatActivity{
             case R.id.nav_map:
                 Intent intent_map = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent_map);
+                finish();
                 break;
             case R.id.nav_user:
                 Intent intent_account = new Intent(getApplicationContext(), UserAccount.class);
                 startActivity(intent_account);
+                finish();
                 break;
             case R.id.nav_user_pois:
                 Intent intent_user_pois = new Intent(getApplicationContext(), UserPoIs.class);
                 startActivity(intent_user_pois);
+                finish();
                 break;
             case R.id.nav_logout:
                 editor.clear();

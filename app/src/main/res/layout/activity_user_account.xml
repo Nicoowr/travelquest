@@ -86,10 +86,11 @@
                     android:text="@string/edit_preferences"
                     android:textSize="@dimen/preferences_textsize"
                     android:textStyle="bold"/>
-                <GridLayout
+                <com.travelquest.travelquest.AutoGridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal">
+                    android:layout_gravity="center_horizontal"
+                    android:columnCount="2">
                     <Button
                         android:id="@+id/account_food"
                         android:layout_width="wrap_content"
@@ -120,11 +121,7 @@
                         android:drawableTop="@drawable/sight"
                         android:background="@drawable/big_round_button"
                         android:text="@string/sightseeing"/>
-                </GridLayout>
-                <GridLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal">
+
                     <Button
                         android:id="@+id/account_music"
                         android:layout_width="wrap_content"
@@ -146,7 +143,8 @@
                         android:background="@drawable/big_round_button"
                         android:text="@string/party"/>
 
-                </GridLayout>
+                </com.travelquest.travelquest.AutoGridLayout>
+
 
                 <Button
                     android:id="@+id/update_preferences_save"

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    >
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,92 +21,95 @@
             android:background="@drawable/linear_layout_shape">
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/login_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:orientation="vertical">
-            <TextView
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/preferences_margin"
-                android:gravity="center_horizontal"
-                android:text="@string/im_interested_in"
-                android:textSize="@dimen/homepage_textsize"/>
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-                <Button
-                    android:id="@+id/preference_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/preferences_margin"
-                    android:layout_weight="1"
-                    android:padding="@dimen/homepage_button_padding"
-                    android:drawableTop="@drawable/food"
-                    android:background="@drawable/big_round_button"
-                    android:text="@string/food"/>
-                <Button
-                    android:id="@+id/preference_drink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/preferences_margin"
-                    android:layout_weight="1"
-                    android:padding="@dimen/homepage_button_padding"
-                    android:drawableTop="@drawable/drink"
-                    android:background="@drawable/big_round_button"
-                    android:text="@string/drinks"/>
-                <Button
-                    android:id="@+id/preference_sight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/preferences_margin"
-                    android:layout_weight="1"
-                    android:padding="@dimen/homepage_button_padding"
-                    android:drawableTop="@drawable/sight"
-                    android:background="@drawable/big_round_button"
-                    android:text="@string/sightseeing"/>
-            </GridLayout>
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-                <Button
-                    android:id="@+id/preference_music"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/preferences_margin"
-                    android:layout_weight="1"
-                    android:padding="@dimen/homepage_button_padding"
-                    android:drawableTop="@drawable/music"
-                    android:background="@drawable/big_round_button"
-                    android:text="@string/music"/>
-                <Button
-                    android:id="@+id/preference_party"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/preferences_margin"
-                    android:layout_weight="1"
-                    android:padding="@dimen/homepage_button_padding"
-                    android:drawableTop="@drawable/party"
-                    android:background="@drawable/big_round_button"
-                    android:text="@string/party"/>
-
-            </GridLayout>
-
-
-            <Button
-                android:id="@+id/preferences_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/preferences_button_margin"
-                android:background="@drawable/big_round_button"
-                android:text="@string/next"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        </LinearLayout>
+                    android:gravity="center_horizontal"
+                    android:text="@string/im_interested_in"
+                    android:textSize="@dimen/homepage_textsize"/>
+
+                <com.travelquest.travelquest.AutoGridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:columnCount="2">
+                    <Button
+                        android:id="@+id/preference_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/food"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/food"/>
+                    <Button
+                        android:id="@+id/preference_drink"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/drink"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/drinks"/>
+                    <Button
+                        android:id="@+id/preference_sight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/sight"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/sightseeing"/>
+
+                    <Button
+                        android:id="@+id/preference_music"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/music"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/music"/>
+                    <Button
+                        android:id="@+id/preference_party"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/preferences_margin"
+                        android:layout_weight="1"
+                        android:padding="@dimen/homepage_button_padding"
+                        android:drawableTop="@drawable/party"
+                        android:background="@drawable/big_round_button"
+                        android:text="@string/party"/>
+
+                </com.travelquest.travelquest.AutoGridLayout>
+
+
+                <Button
+                    android:id="@+id/preferences_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/preferences_button_margin"
+                    android:background="@drawable/big_round_button"
+                    android:text="@string/next"/>
+
+            </LinearLayout>
+        </ScrollView>
 
 
 

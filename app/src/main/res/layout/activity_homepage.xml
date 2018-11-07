@@ -54,7 +54,7 @@
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/travel_alone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/homepage_button_margin"
                     android:layout_weight="1"
@@ -64,10 +64,10 @@
                     android:text="@string/travel_alone"/>
                 <Button
                     android:id="@+id/travel_with_people"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/homepage_button_margin"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:padding="@dimen/homepage_button_padding"
                     android:drawableTop="@drawable/travel_with_people"
                     android:background="@drawable/big_round_button"
@@ -79,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/i_want_to_meet"
                 android:gravity="center_horizontal"
-
                 android:textSize="@dimen/homepage_textsize"/>
             <LinearLayout
                 android:layout_width="match_parent"

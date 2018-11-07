@@ -35,7 +35,7 @@ public class LoginTransition extends AppCompatActivity {
         editor = pref.edit();
         first_name = pref.getString("first_name", null);
         greetings = (TextView) findViewById(R.id.greetings);
-        greetings.setText("Welcome " + first_name);
+        greetings.setText("Welcome " + first_name + "!");
         greetings.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fadein));
 
         ImageView login_transition_picture = (ImageView) findViewById(R.id.login_transition_picture);
@@ -52,6 +52,7 @@ public class LoginTransition extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginTransition.this, Homepage.class);
                 startActivity(intent);
+                finish();
             }
         });
 

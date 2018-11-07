@@ -29,11 +29,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/preferences_padding"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/login_text_margin"
                     android:gravity="center_horizontal"
                     android:text="@string/login_form_title"
                     android:textSize="@dimen/login_form_title"
