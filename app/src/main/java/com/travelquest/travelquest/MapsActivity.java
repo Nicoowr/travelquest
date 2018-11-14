@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -385,18 +387,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     protected void showHint(){
-        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("There are " + String.valueOf(poiNumber(FAR_RADIUS)) + " point(s) of interest within 100 meters.\n" +
+//        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+//        dlgAlert.setMessage("There are " + String.valueOf(poiNumber(FAR_RADIUS)) + " point(s) of interest within 100 meters.\n" +
+//                "There are " + String.valueOf(poiNumber(VERY_FAR_RADIUS)) + " point(s) of interest within 1 kilometer.");
+//        dlgAlert.setTitle("Here is a hint!");
+//        dlgAlert.setPositiveButton("OK",
+//            new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    //dismiss
+//                }
+//            });
+//        dlgAlert.setCancelable(true);
+//        dlgAlert.create().show();
+
+        CustomHint cdd = new CustomHint(MapsActivity.this, "There are " + String.valueOf(poiNumber(FAR_RADIUS)) + " point(s) of interest within 100 meters.\n" +
                 "There are " + String.valueOf(poiNumber(VERY_FAR_RADIUS)) + " point(s) of interest within 1 kilometer.");
-        dlgAlert.setTitle("Here is a hint!");
-        dlgAlert.setPositiveButton("OK",
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    //dismiss
-                }
-            });
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cdd.show();
     }
 
     protected int poiNumber(int radius){

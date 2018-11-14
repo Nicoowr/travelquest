@@ -33,6 +33,8 @@
     <dimen name="poisList_title_size">20dp</dimen>
     <dimen name="poisList_info_size">15dp</dimen>
 
+    <dimen name="hint_layout_padding">10dp</dimen>
+
 
 
 
